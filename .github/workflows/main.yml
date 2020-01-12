@@ -54,7 +54,7 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v1
-    - name: go test for codes
+    - name: go build for codes
       run: |
         for dir in $(ls -l | awk '$1 ~ /d/ {print $9}') ; do
           echo "=== go build for $dir"
