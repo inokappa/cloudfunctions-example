@@ -1,0 +1,62 @@
+name: CI on push
+on: [push]
+jobs:
+  go_vet:
+    strategy:
+      matrix:
+        go-version: [1.11.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: go vet for codes
+      run: |
+        for dir in $(ls -d) ; do
+          echo "=== go vet for $dir"
+          cd $dir && go vet .
+        done
+
+  go_test:
+    strategy:
+      matrix:
+        go-version: [1.11.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: go test for codes
+      run: |
+        for dir in $(ls -d) ; do
+          echo "=== go test for $dir"
+          cd $dir && go test -v
+        done
+
+  go_build:
+    strategy:
+      matrix:
+        go-version: [1.11.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: go test for codes
+      run: |
+        for dir in $(ls -d) ; do
+          echo "=== go build for $dir"
+          cd $dir && go build
+        done
