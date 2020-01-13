@@ -22,7 +22,7 @@ type GcsEvent struct {
 }
 
 type NotificationEvent struct {
-	Name      string `json:"email"`
+	Name      string `json:"name"`
 	Event     string `json:"event"`
 	Timestamp int64  `json:"timestamp"`
 }
