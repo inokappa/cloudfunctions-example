@@ -69,7 +69,9 @@ error
 
 ### gcs-to-bigquery
 
-GCS にオブジェクトが保存されたことをトリガーとする関数です. 上記の HTTP Trigger な関数で POST されたデータを GCS を介して BigQuery に保存する流れです.
+GCS にオブジェクトが保存されたことをトリガーとする関数です. 上記の HTTP Trigger な関数で POST されたデータを GCS を介して BigQuery に保存する流れです. 下図のように BigQuery に POST されたデータがストアされます.
+
+![画像](https://raw.githubusercontent.com/inokappa/cloudfunctions-example/master/docs/images/2020011401.png)
 
 ## インフラ
 
