@@ -21,9 +21,6 @@ $ tree .
 │   ├── go.sum
 │   ├── handler.go
 │   └── handler_test.go
-├── output
-│   ├── gcs-to-bigquery.zip
-│   └── httptrigger-to-gcs.zip
 └── terraform
     ├── Makefile
     ├── bigquery
