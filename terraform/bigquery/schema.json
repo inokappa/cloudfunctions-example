@@ -1,0 +1,20 @@
+[
+    {
+        "name": "name",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Sample Name"
+    },
+    {
+        "name": "event",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Sample Event"
+    },
+    {
+        "name": "timestamp",
+        "type": "INT64",
+        "mode": "NULLABLE",
+        "description": "Sample timestamp"
+    }
+]

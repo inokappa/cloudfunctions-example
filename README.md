@@ -88,10 +88,12 @@ tfstate ファイルは GCS のバケットに保存する為, 手動でバケ�
 
 ```sh
 $ cd terraform
-$ make init
+$ terraform init -backend-config="bucket=your-tfstate-bucket-name"
 $ make plan
 $ make apply
 ```
+
+## Github Actions
 
 ## todo
 
