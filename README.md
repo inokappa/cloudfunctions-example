@@ -21,13 +21,16 @@ $ tree .
 │   ├── go.sum
 │   ├── handler.go
 │   └── handler_test.go
+├── output
+│   ├── gcs-to-bigquery.zip
+│   └── httptrigger-to-gcs.zip
 └── terraform
     ├── Makefile
     ├── bigquery
     │   └── schema.json
     ├── main.tf
     ├── resources.tf
-    └── variables.tf
+    └── variables.sample.tf
 ```
 
 ## Cloud Functions
@@ -51,6 +54,17 @@ HTTP Trigger な関数です. デプロイすると URL が払い出されます
 ```sh
 $ curl -X POST https://asia-northeast1-your-sample-pj.cloudfunctions.net/httptrigger-to-gcs -d '[{"name":"hoge", "event":"test", "timestamp":"1234567890"}]'
 ok
+```
+
+尚, 意図しない JSON や JSON 以外を POST するとエラーが返ります.
+
+```sh
+$ curl -X POST https://asia-northeast1-your-sample-pj.cloudfunctions.net/httptrigger-to-gcs -d 'foo' -v
+... 略 ...
+< HTTP/2 400
+< content-type: text/plain; charset=utf-8
+... 略 ...
+error
 ```
 
 ### gcs-to-bigquery
@@ -79,7 +93,7 @@ tfstate ファイルは GCS のバケットに保存する為, 手動でバケ�
 
 ### variables.tf の修正
 
-環境に合わせて, variables.tf の内容を修正します. プロジェクト ID や BigQuery のテーブルセット等を設定する必要があります.
+環境に合わせて, variables.sample.tf の内容を修正して variables.tf というファイル名で保存します. variables.tf にはプロジェクト ID や BigQuery のテーブルセット等を設定する必要があります.
 
 ### あとはいつもの Terraform
 
@@ -88,6 +102,34 @@ $ cd terraform
 $ terraform init -backend-config="bucket=your-tfstate-bucket-name"
 $ make plan
 $ make apply
+```
+
+### BigQuery のスキーマ
+
+BigQuery のスキーマは以下の通りです.
+
+```sh
+$ cat terraform/bigquery/schema.json
+[
+    {
+        "name": "name",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Sample Name"
+    },
+    {
+        "name": "event",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Sample Event"
+    },
+    {
+        "name": "timestamp",
+        "type": "INT64",
+        "mode": "NULLABLE",
+        "description": "Sample timestamp"
+    }
+]
 ```
 
 ## Github Actions
@@ -101,3 +143,4 @@ Cloud Functions コードの CI は Github Actions を見様見真似で追加�
 ## todo
 
 * インフラ構成を Terraform v0.12 に対応させる
+* gcloud コマンドを利用する
