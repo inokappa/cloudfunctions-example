@@ -15,7 +15,7 @@ import (
 )
 
 type NotificationEvent struct {
-	Email string `json:"name"`
+	Name string `json:"name"`
 }
 
 // Entry Point
@@ -26,8 +26,9 @@ func GcfWebhookHandler(w http.ResponseWriter, r *http.Request) {
 	strBody := body.String() + "\n"
 	err := writeStorage(r, strBody)
 	if err != nil {
-		log.Printf("Failed to webhook request : %v", err)
-		fmt.Fprintf(w, "error")
+		log.Printf("Failed to stored webhook request : %v", err)
+		http.Error(w, "error", 400)
+		// fmt.Fprintf(w, "error")
 	} else {
 		fmt.Fprintf(w, "ok")
 	}
