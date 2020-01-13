@@ -95,6 +95,12 @@ $ make apply
 
 ## Github Actions
 
+Cloud Functions コードの CI は Github Actions を見様見真似で追加しています. 以下のジョブが実行されます.
+
+* Lint (go vet)
+* Test (go test)
+* Build (go build ※ ただビルドするだけです)
+
 ## todo
 
 * インフラ構成を Terraform v0.12 に対応させる
